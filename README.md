@@ -1,3 +1,6 @@
+[![Join the #daf-d3 channel](https://img.shields.io/badge/Slack%20channel-%23design--js-blue.svg)](https://developersitalia.slack.com/messages/C8TGKHFQV)
+[![Get invited](https://slack.developers.italia.it/badge.svg)](https://slack.developers.italia.it/)
+
 ## RIFIUTI NEI COMUNI IN REGIONI A STATUTO ORDINARIO - DATI SOSE
 Visualizzazione di un grafico interattivo realizzato con d3.js e dati elaborati da SOSE. Il grafico rappresenta
 i comuni italiani di regioni a statuto ordinario attraverso un grafico "Efficienza nella gestione della spesa" vs
