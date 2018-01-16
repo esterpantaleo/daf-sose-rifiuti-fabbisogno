@@ -1,14 +1,13 @@
 [![Join the #daf-d3 channel](https://img.shields.io/badge/Slack%20channel-%23daf--d3-blue.svg)](https://developersitalia.slack.com/messages/C8TGKHFQV)
 [![Get invited](https://slack.developers.italia.it/badge.svg)](https://slack.developers.italia.it/)
 
-## RIFIUTI NEI COMUNI IN REGIONI A STATUTO ORDINARIO - DATI SOSE
-Visualizzazione di un grafico interattivo realizzato con d3.js e dati elaborati da SOSE. Il grafico rappresenta
-i comuni italiani di regioni a statuto ordinario attraverso un grafico "Efficienza nella gestione della spesa" vs
-"Livello dei servizi erogati" utilizzando dati relativi alla gestione dei rifiuti.
+# Introduction
+This repo contains a [d3.js](https://d3js.org/) infographic that visualizes [SOSE](https://www.sose.it/)'s data on waste 
+disposal in Italian municipalities ("Comuni") in Italian ordinary statute regions in 2010 and 2013. 
+Specifically, this interactive visualization shows expenses and forecasted expenses per region/province (users can interactively choose what they want to see).
+Users can click on individual circles (municipalities) to explore SOSE's data on municipalities.
 
-L'utente può scegliere quali regioni o quali province visualizzare.
-
-# Licenza
+# License
 
 Copyright (c) 2017-2018, the respective contributors, as shown by the AUTHORS file.
 
