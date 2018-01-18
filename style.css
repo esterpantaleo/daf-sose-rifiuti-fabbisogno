@@ -1,10 +1,14 @@
+html {
+   font-family: "Helvetica Neue";  
+}
+
 #chart {
    margin-left: -2em;
    height: 35em;
 }
 
 text {    
-   font: 0.8em sans-serif;    
+   font-size: 0.8em;    
 }
 
 .dot { 
@@ -22,7 +26,8 @@ text {
 }
 
 .year.label {    
-   font: 500 7em "Helvetica Neue";     
+   font-size: 7em;
+   font-weight: 500;     
    fill: #ddd;
 }
 
@@ -41,56 +46,58 @@ text {
 }
 
 .year {
-    text-align: center;
-    font: 500 2em "Helvetica Neue";
-    color: silver;
+   text-align: center;
+   font-size: 2em;
+   font-weight: 500;
+   color: silver;
 }
 
 .data {
-    text-align: center;
-    font: 500 1.2em "Helvetica Neue";
+   text-align: center;
+   font-size: 500 1.2em;
 }
 
 .header {
-    text-align: center;
+   text-align: center;
 }
 
 h2 {
-    font: 700 1.5em "Helvetica Neue";
-    color: silver;
-    margin-bottom: 0em;
+   font-weight: 700;
+   font-size: 1.5em;
+   color: silver;
+   margin-bottom: 0em;
 }
 
 td.data {
-    padding: 0.7em;
+   padding-bottom: 0.7em;
 }
 
 span.arrow.red {
-    font-size: 1.5em;
-    color: red;
+   font-size: 1.5em;
+   color: red;
 }
 
 span.arrow.green {
-    font-size: 1.5em;
-    color: green;
+   font-size: 1.5em;
+   color: green;
 }
 
 span.instruction {
-    font-size: 1em;
-    color: red;
+   font-size: 1em;
+   color: red;
 }
 
 div.description {
-    width: 100%;
-    font-size: 1.2em !important;
+   width: 100%;
+   font-size: 1.2em !important;
 }
 
 p.credit {
-    color: grey;
-    font-size: 1em;
+   color: grey;
+   font-size: 1em;
 }
 
 ul, li {
-    width: 100%;
-    font-size: 1em;
+   width: 100%;
+   font-size: 1em;
 }
