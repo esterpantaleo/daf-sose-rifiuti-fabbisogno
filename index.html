@@ -29,6 +29,7 @@
                             <br><br>
                         </div>
                         <div id="chart"></div>
+                        <div id="radiusLegend"></div>
                     </td><td>
                         <div id="table"></div>
                     </td> 
@@ -98,9 +99,9 @@ var regioni = ["ABRUZZO", "BASILICATA", "CALABRIA", "CAMPANIA", "EMILIA ROMAGNA"
         ["Spesa del servizio rifiuti per tonnellate di rifiuti raccolti", "IND5", "€"]];
 
 // Chart dimensions.
-var margin = {top: 19.5, right: 20.5, bottom: 30.5, left: 100.5},
-    width = 500 - margin.right,
-    height = 500 - margin.top - margin.bottom;
+var margin = {top: 19.5, right: 100.5, bottom: 30.5, left: 100.5},
+    width = 600 - margin.right,
+    height = 570 - margin.top - margin.bottom;
 
 // Initialize color of button.
 d3.select("#inputPiu").style("background-color", "lightblue");
@@ -171,7 +172,7 @@ function draw(type, value) {
         // Create the SVG container and set the origin.
         var svg = d3.select("#chart").append("svg")
             .attr("id", "drawing")
-            .attr("width", width + margin.left + margin.right)
+            .attr("width", width + margin.left + margin.right - 60)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -320,7 +321,7 @@ function draw(type, value) {
             dot.attr("cx", function(d) { return xScale(11 - d.LQP_COD_5); }) 
                 .attr("cy", function(d) { return yScale(d.LQP_COD_6); }) 
                 .attr("r", function(d) { return radiusScale(d.POPOLAZIONE); })
-                .style("fill", function(d) { return heatmapColor(colorScale((11 - d.LQP_COD_5 + d.LQP_COD_6)) / 2); })
+                .style("fill", function(d) { return heatmapColor(colorScale((11 - d.LQP_COD_5) * 0.4 + d.LQP_COD_6 * 0.6)); })
                 .attr("opacity", function(d) { return (isNaN(d.LQP_COD_6) || isNaN(d.LQP_COD_5)) ? 0 : 1});
         }
 
@@ -437,6 +438,69 @@ function draw(type, value) {
                 return NaN;
             }
         }
+
+	// Add the radius legend
+        var radiusLegend = d3.select("#radiusLegend").append("svg")
+           .attr("width", width)
+           .attr("height", height/5)
+           .attr("transform", "translate(" + margin.left + "," +  margin.top + ")")
+
+	   radiusLegend.append("text")
+               .attr("text-anchor", "start")
+               .attr("x", 0)
+               .attr("y", height / 30)
+               .text("Raggio")
+               .style("font-size", "1em");
+
+           radiusLegend.append("text")
+               .attr("text-anchor", "start")
+               .attr("x", 0)
+               .attr("y", 2.9 * height / 30)
+               .text("Popolazione")
+               .style("font-size", "1em");
+
+           radiusLegend.append("text")
+               .attr("text-anchor", "start")
+	       .attr("x", 8 * width / 30)
+	       .attr("y", 2.9 * height / 30)
+	       .text("1000")
+	       .style("font-size", "1em");
+
+	   radiusLegend.append("circle")
+               .attr("class", "dot")
+	       .attr("fill", "green")
+	       .attr("cx", 9 * width / 30)
+	       .attr("cy", height / 30)
+	       .attr("r", radiusScale(1000));
+
+           radiusLegend.append("text")
+               .attr("text-anchor", "start")
+               .attr("x", 11 * width / 30)
+               .attr("y", 2.9 * height / 30)
+               .text("10000")
+               .style("font-size", "1em");
+
+           radiusLegend.append("circle")
+               .attr("class", "dot") 
+               .attr("fill", "green")
+               .attr("cx", 12.5 * width / 30)
+               .attr("cy", height / 30)
+               .attr("r", radiusScale(10000));
+
+           radiusLegend.append("text")
+               .attr("text-anchor", "start")
+               .attr("x", 15.3 * width / 30)
+               .attr("y", 2.9 * height / 30)
+               .text("100000")
+               .style("font-size", "1em");
+
+           radiusLegend.append("circle")
+               .attr("class", "dot") 
+               .attr("fill", "green")
+               .attr("cx", 17 * width / 30)
+               .attr("cy", height / 30)
+               .attr("r", radiusScale(100000));
+
     });
 }
     </script>
