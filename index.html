@@ -11,14 +11,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Rifiuti nei Comuni in Regioni a Statuto Ordinario</h1>
+        <h1>La gestione dei rifiuti nei comuni italiani</h1>
             <table style="width:100%">
                 <tr>
                     <td>
 	                <div id="option">
                             <input id="inputPiu" name="updateButton" type="button" value="Comuni con piu' di 150000 abitanti" onclick="updateOnClick()" /> 
-                            <br>
-                            Puoi personalizzare questa visualizzazione: 
+                            
                             <form id="myForm"> 
                                 <select id="selezionaRP" onchange="updateOnSelect()"> 
                                     <option>
@@ -37,32 +36,32 @@
             </table>
 	    <span class="instruction">
                 Scorri il mouse sull'anno per andare indietro o avanti nel tempo. Clicca su un comune per visualizzare i dati sui rifiuti ad esso relativi.
-                Scegli una regione o una provincia nel menu a tendina per visualizzare i dati associati.
+                Scegli una regione o una provincia nel menu a tendina per visualizzare i dati associati. Nella visualizzazione sono inclusi solo i Comuni di Regioni a Statuto Ordinario.
             </span>
             <br><br>
-            <div class="description"> 
-                Il grafico riporta sull'asse orizzontale una misura dell'efficienza del comune nella gestione della spesa. Tale valore è stato ottenuto 
-                confrontando per tutti i comuni la spesa storica e il fabbisogno standard, più precisamente considerando la distribuzione del rapporto tra: 
+            <div class="description">
+	       Nel grafico i comuni più virtuosi sono quelli in alto a destra (in verde), quelli meno virtuosi in basso a sinistra (in rosso).
+	       <br><br>
+               Sull'asse orizzontale è riportata una misura dell'efficienza del comune nella gestione della spesa, ottenuta 
+               confrontando per tutti i comuni la spesa storica e il fabbisogno standard, più precisamente considerando la distribuzione del rapporto tra: 
                 <ul><li>la differenza tra la spesa storica e il fabbisogno standard</li> <li>il fabbisogno standard</li></ul> per tutti i comuni ed 
-                assegnando a ciascun comune un punteggio da 1 a 10 a seconda del valore di tale rapporto. Ad esempio ai comuni con una spesa inferiore 
-                al fabbisogno standard viene assegnato un punteggio più alto.
-                <br>
-                Sull’asse verticale il grafico riporta il posizionamento del comune rispetto al livello dei servizi erogati, che viene calcolato come il rapporto fra
-                <ul><li>la differenza tra il livello storico e il livello standard dei servizi</li> <li>il livello standard.</li></ul>
-                Entrambi i posizionamenti sono espressi su una scala da 1 (comuni meno virtuosi) a 10 (comuni più virtuosi).
-                <br>
-                Nel grafico i comuni più virtuosi sono quelli in alto a destra (in verde), quelli meno virtuosi 
-                in basso a sinistra (in rosso).
-                <br>
-                Note: i dati originari sono relativi agli anni 2010 e 2013 e sono stati interpolati in maniera lineare per 2011 e 2012;
-                per semplificare la visualizzazione, nei grafici relativi alle regioni sono riportati solo i comuni con più di 30000 abitanti 
-                mentre nei grafici relativi alle province sono riportati solo i comuni con più di 5000 abitanti.
+               assegnando a ciascun comune un punteggio da 1 a 10 a seconda del valore di tale rapporto. Ad esempio ai comuni con una spesa inferiore 
+               al fabbisogno standard viene assegnato un punteggio più alto.
+                <br><br>
+               Sull’asse verticale è riportato invece il posizionamento del comune rispetto al livello dei servizi erogati, ovvero il rapporto fra
+               <ul><li>la differenza tra il livello storico e il livello standard dei servizi</li> <li>il livello standard.</li></ul>
+	       <br><br>
+               Entrambi i posizionamenti sono espressi su una scala da 1 (comuni meno virtuosi) a 10 (comuni più virtuosi).
+               <br>
+               Note: i dati originari sono relativi agli anni 2010 e 2013 e sono stati interpolati in maniera lineare per 2011 e 2012;
+               per semplificare la visualizzazione, nei grafici relativi alle regioni sono riportati solo i comuni con più di 30000 abitanti 
+               mentre nei grafici relativi alle province sono riportati solo i comuni con più di 5000 abitanti.
                 
             </div>
             <br>
             <footer>
                 <p class="credit">
-                    Crediti: Questo grafico e' stato realizzato utilizzando <a href="https://d3js.org/">D3</a>. 
+                    Crediti: Questo grafico e' stato realizzato utilizzando <a href="https://d3js.org/">d3</a>. 
                     Dati elaborati da <a href="https://www.sose.it/">SOSE</a> su open data disponibili <a href="https://www.opencivitas.it"/>qui</a>. 
                     Il codice sorgente e' disponibile su <a href="https://github.com/esterpantaleo/daf-sose-rifiuti-fabbisogno"  target="_blank">Github</a>.
                 </p>
@@ -120,7 +119,12 @@ function updateOnClick() {
    d3.select("#table")
        .html("");
    d3.select("#drawing")
-        .remove();
+       .remove();
+   d3.select("#legend")
+       .remove();
+   var sel = document.getElementById('selezionaRP');
+   sel.selectedIndex=0;
+
    draw(myType);
 }
 
@@ -148,6 +152,9 @@ function updateOnSelect() {
        .html("");                
    d3.select("#drawing")
        .remove();
+   d3.select("#legend")
+       .remove();									
+									
    draw(myType, myValue);
 }
 
@@ -440,17 +447,13 @@ function draw(type, value) {
         }
 
 	// Add the radius legend
-        var radiusLegend = d3.select("#radiusLegend").append("svg")
+        var radiusLegend = d3.select("#radiusLegend")
+           .append("div")
+           .attr("id", "legend")
+           .append("svg")
            .attr("width", width)
            .attr("height", height/5)
-           .attr("transform", "translate(" + margin.left + "," +  margin.top + ")")
-
-	   radiusLegend.append("text")
-               .attr("text-anchor", "start")
-               .attr("x", 0)
-               .attr("y", height / 30)
-               .text("Raggio")
-               .style("font-size", "1em");
+           .attr("transform", "translate(" + margin.left + "," +  margin.top + ")");
 
            radiusLegend.append("text")
                .attr("text-anchor", "start")
@@ -468,7 +471,7 @@ function draw(type, value) {
 
 	   radiusLegend.append("circle")
                .attr("class", "dot")
-	       .attr("fill", "green")
+	       .attr("fill", "white")
 	       .attr("cx", 9 * width / 30)
 	       .attr("cy", height / 30)
 	       .attr("r", radiusScale(1000));
@@ -482,7 +485,7 @@ function draw(type, value) {
 
            radiusLegend.append("circle")
                .attr("class", "dot") 
-               .attr("fill", "green")
+               .attr("fill", "white")
                .attr("cx", 12.5 * width / 30)
                .attr("cy", height / 30)
                .attr("r", radiusScale(10000));
@@ -496,7 +499,7 @@ function draw(type, value) {
 
            radiusLegend.append("circle")
                .attr("class", "dot") 
-               .attr("fill", "green")
+               .attr("fill", "white")
                .attr("cx", 17 * width / 30)
                .attr("cy", height / 30)
                .attr("r", radiusScale(100000));
