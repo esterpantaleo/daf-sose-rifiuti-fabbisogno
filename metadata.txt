@@ -1,0 +1,4 @@
+Nome: 'La gestione dei rifiuti nei Comuni italiani'
+Sorgente dati: 'MIUR'
+Autore: 'Ester Pantaleo'
+Github repository: 'https://github.com/esterpantaleo/daf-d3-sose-rifiuti'
