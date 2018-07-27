@@ -67,3 +67,31 @@ for (j in 1:6699) {
 }
 write(output, "file.json")
 ```
+
+```
+echo "COMUNE_CAT_COD;POPOLAZIONE;LQP_COD6;LQP_COD5;IND7;IND6;IND5;IND1" > dati_2015.csv
+cat ~/Desktop/Ind_FC20RIFIUTI.csv | awk -F ";" '{if ($2 == "FST_RIPROPORZIONATO_BI_PROAB") {sub(",",".",$4);printf "%s;%.0f;", $1,$4} else if ($2 == "POSIZIONE_OUTPUT_PERC"){printf "%d;", $3} else if ($2 == "POSIZIONE_SPESA_PERC"){printf "%d;", $3} else if ($2 == "RACC_DIFFER_PERC_2015") {printf "%d;", $3;} else if ($2 == "RIFIUTI_URBANI_2015_P_KG") {printf "%d;", $3;} else if ($2 == "SPESA_STORICA") {printf "%d;", $3;}  else if ($2 == "SPESA_STORICA_PROAB")  {printf "%d\n", $3;}}' |awk -F ";" '{print $1";" $2";" $3";" $4";" $5";" $6/1000";" $7/1000";" $8}' >> dati_2015.csv
+```
+
+```
+dat = read.table("dati_2015.csv", sep=";", quote="", header = TRUE)
+
+output = "[ ";
+for (i in 1:2047) {
+    line="";
+    line = paste(line, "\"COMUNE_CAT_COD\":\"", dat$COMUNE_CAT_COD[i], "\",", sep="")
+    
+    for (col in cbind("POPOLAZIONE","LQP_COD6","LQP_COD5","IND7","IND6","IND5","IND1")){
+        val = unlist(dat[col])
+        if (!is.na(val[i])) {
+            line = paste(line, "\"", col, "\":[[2015,", val[i], "]]", sep="");
+            if (col != "IND1") {
+                line = paste(line, ",");
+            }
+        }
+    }
+    output = paste(output, "{", line, "},");
+}
+output = paste(output, "]")
+write(output, "file2015.json")
+```
