@@ -3,3 +3,4 @@ Descrizione: 'Questa application utilizza d3.js per visualizzare come i Comuni i
 Sorgente dati: 'SOSE'
 Autore: 'Ester Pantaleo'
 Github repository: 'https://github.com/italia/daf-d3-sose-rifiuti'
+Github visualization: 'https://italia.github.io/daf-d3-sose-rifiuti/'
